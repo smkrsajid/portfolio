@@ -1,0 +1,169 @@
+{
+  "results": [
+    {
+      "test": "Six project cards render",
+      "passed": true
+    },
+    {
+      "test": "Four category filters render",
+      "passed": true
+    },
+    {
+      "test": "All image assets load after scrolling to lazy covers",
+      "passed": true
+    },
+    {
+      "test": "Reduced motion prevents background playback",
+      "passed": true
+    },
+    {
+      "test": "Motion filter returns two matching projects",
+      "passed": true
+    },
+    {
+      "test": "Project opens in native dialog",
+      "passed": true
+    },
+    {
+      "test": "Preview explicitly labels concept content",
+      "passed": true
+    },
+    {
+      "test": "Next project follows filtered category",
+      "passed": true
+    },
+    {
+      "test": "Escape closes project and unlocks scroll",
+      "passed": true
+    },
+    {
+      "test": "Focus returns to original project trigger",
+      "passed": true
+    },
+    {
+      "test": "Video editing filter returns two projects",
+      "passed": true
+    },
+    {
+      "test": "Product films filter returns two projects",
+      "passed": true
+    },
+    {
+      "test": "Bundled showreel has real 12-second video",
+      "passed": true
+    },
+    {
+      "test": "Showreel playback advances",
+      "passed": true
+    },
+    {
+      "test": "Closing removes video player",
+      "passed": true
+    },
+    {
+      "test": "Empty contact form validates all required fields",
+      "passed": true
+    },
+    {
+      "test": "Malformed email is rejected",
+      "passed": true
+    },
+    {
+      "test": "Valid enquiry generates a visible draft",
+      "passed": true
+    },
+    {
+      "test": "Demo contact never claims message was sent",
+      "passed": true
+    },
+    {
+      "test": "Copy draft provides feedback",
+      "passed": true
+    },
+    {
+      "test": "Service accordion opens",
+      "passed": true
+    },
+    {
+      "test": "Service CTA selects enquiry service",
+      "passed": true
+    },
+    {
+      "test": "No horizontal overflow at 320px",
+      "passed": true
+    },
+    {
+      "test": "No horizontal overflow at 375px",
+      "passed": true
+    },
+    {
+      "test": "No horizontal overflow at 390px",
+      "passed": true
+    },
+    {
+      "test": "No horizontal overflow at 540px",
+      "passed": true
+    },
+    {
+      "test": "No horizontal overflow at 768px",
+      "passed": true
+    },
+    {
+      "test": "No horizontal overflow at 1024px",
+      "passed": true
+    },
+    {
+      "test": "No horizontal overflow at 1440px",
+      "passed": true
+    },
+    {
+      "test": "No horizontal overflow at 1920px",
+      "passed": true
+    },
+    {
+      "test": "Mobile navigation expands",
+      "passed": true
+    },
+    {
+      "test": "Mobile navigation closes after a selection",
+      "passed": true
+    },
+    {
+      "test": "Ambient reel starts when visible",
+      "passed": true
+    },
+    {
+      "test": "Ambient pause control works",
+      "passed": true
+    },
+    {
+      "test": "Opening modal pauses background video",
+      "passed": true
+    },
+    {
+      "test": "Closing modal restores eligible background playback",
+      "passed": true
+    },
+    {
+      "test": "Standalone source renders without network requests",
+      "passed": true
+    },
+    {
+      "test": "Embedded MP4 loads without an external server",
+      "passed": true
+    },
+    {
+      "test": "No browser JavaScript or console errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "environment": "Headless Chromium; self-contained HTML loaded in memory; simulated desktop/mobile viewports.",
+  "not_tested": [
+    "Live hosting",
+    "Real mail-client delivery",
+    "Live third-party video embeds",
+    "Safari and Firefox",
+    "Physical mobile devices"
+  ]
+}

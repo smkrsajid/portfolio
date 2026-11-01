@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+<defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#90a7b8"/><stop offset="1" stop-color="#d9d5c4"/></linearGradient><linearGradient id="frame2" x1="0" x2="1"><stop stop-color="#466174"/><stop offset="1" stop-color="#233e51"/></linearGradient></defs>
+<rect width="800" height="600" fill="#263d55"/>
+<path d="M45 137h270" stroke="#5c7082"/><text x="53" y="107" font-family="Arial,Helvetica,sans-serif" font-size="10" letter-spacing="2" fill="#bfc9ce">THE HUMAN SIDE OF THE STORY.</text>
+<text x="48" y="297" font-family="Georgia,serif" font-size="143" font-style="italic" letter-spacing="-11" fill="#eeeee1">off</text><text x="48" y="420" font-family="Georgia,serif" font-size="143" font-style="italic" letter-spacing="-11" fill="#eeeee1">script.</text>
+<g transform="rotate(10 590 300)">
+<rect x="445" y="-73" width="305" height="735" fill="#1a2b3c"/>
+<g fill="#607181"><path d="M455 20h9v16h-9zM455 65h9v16h-9zM455 110h9v16h-9zM455 155h9v16h-9zM455 200h9v16h-9zM455 245h9v16h-9zM455 290h9v16h-9zM455 335h9v16h-9zM455 380h9v16h-9zM455 425h9v16h-9zM455 470h9v16h-9zM455 515h9v16h-9zM455 560h9v16h-9z"/><path d="M731 20h9v16h-9zM731 65h9v16h-9zM731 110h9v16h-9zM731 155h9v16h-9zM731 200h9v16h-9zM731 245h9v16h-9zM731 290h9v16h-9zM731 335h9v16h-9zM731 380h9v16h-9zM731 425h9v16h-9zM731 470h9v16h-9zM731 515h9v16h-9zM731 560h9v16h-9z"/></g>
+<rect x="480" y="-31" width="235" height="185" fill="url(#sky)"/><circle cx="650" cy="22" r="24" fill="#e8b085"/><path d="M480 139 548 91 598 105 637 64 715 111v43H480z" fill="#5d7376"/><path d="M480 139 553 113 627 145 715 119v35H480z" fill="#435f69"/>
+<rect x="480" y="181" width="235" height="205" fill="url(#frame2)"/><rect x="500" y="199" width="73" height="138" fill="#6a8390"/><path d="M526 199v138M500 263h73" stroke="#334f62" stroke-width="7"/><path d="M601 386v-59a44 44 0 0 1 88 0v59z" fill="#1d3141"/><ellipse cx="645" cy="283" rx="25" ry="33" fill="#b79880"/>
+<rect x="480" y="414" width="235" height="206" fill="#b0b6ae"/><path d="M480 579 541 523 578 548 635 486 715 568v52H480z" fill="#6b8384"/><path d="M480 605 564 562 611 586 715 541v79H480z" fill="#456470"/>
+</g>
+<text x="53" y="541" font-family="Arial,Helvetica,sans-serif" font-size="13" fill="#c0c9cc">Stories worth staying for.</text></svg>

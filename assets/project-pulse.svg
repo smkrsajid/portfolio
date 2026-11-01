@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+<rect width="800" height="600" fill="#ef5935"/>
+<path d="M0 135h800M0 465h800" stroke="#c8472a" stroke-width="1"/>
+<text x="53" y="100" font-family="Arial,Helvetica,sans-serif" font-size="12" letter-spacing="2.7" fill="#552315">TURN UP THE FEELING.</text>
+<text x="49" y="361" font-family="Arial,Helvetica,sans-serif" font-size="218" font-weight="700" letter-spacing="-16" fill="#faf0de">pulse</text>
+<path d="M54 408h559" stroke="#faf0de" stroke-width="3"/>
+<g transform="translate(681 94)" stroke="#faf0de" stroke-width="7"><path d="M0-35V35M-35 0h70M-25-25l50 50M-25 25l50-50"/></g>
+<path d="M58 507h34v32H58zM106 487h34v52h-34zM154 508h34v31h-34zM202 476h34v63h-34zM250 494h34v45h-34zM298 481h34v58h-34zM346 511h34v28h-34zM394 490h34v49h-34z" fill="#502b1f"/>
+<text x="563" y="520" font-family="Arial,Helvetica,sans-serif" font-size="11" letter-spacing="1.4" fill="#502b1f">BUILT TO BE FELT.</text></svg>

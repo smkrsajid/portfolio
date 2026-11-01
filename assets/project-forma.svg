@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+<defs><linearGradient id="wall" x1="0" x2="1"><stop stop-color="#d2c6b2"/><stop offset="1" stop-color="#ece4d5"/></linearGradient><linearGradient id="arch" x1="0" x2="1"><stop stop-color="#a39075"/><stop offset=".24" stop-color="#c6b9a1"/><stop offset="1" stop-color="#ddd3c2"/></linearGradient><linearGradient id="inside" x1="0" x2=".8" y2=".5"><stop stop-color="#473d30"/><stop offset="1" stop-color="#a08d71"/></linearGradient><linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d0c4af"/><stop offset="1" stop-color="#e5ddcd"/></linearGradient></defs>
+<rect width="800" height="600" fill="url(#wall)"/>
+<path d="M0 425h800v175H0z" fill="url(#floor)"/>
+<path d="M295 508h295l168 92H459z" fill="#b2a58e" opacity=".6"/>
+<path d="M287 515V234a159 159 0 0 1 318 0v281z" fill="url(#arch)"/>
+<path d="M333 515V238a114 114 0 0 1 228 0v277z" fill="url(#inside)"/>
+<path d="M367 515V257a91 91 0 0 1 182-6v264z" fill="#baaa8e"/>
+<path d="M390 515V267a73 73 0 0 1 146 0v248z" fill="#d4c6ad"/>
+<path d="M390 515 534 370v145z" fill="#e9dfca"/>
+<path d="M286 515V234a159 159 0 0 1 318 0" fill="none" stroke="#f3ead9" stroke-width="2" opacity=".7"/>
+<text x="51" y="133" font-family="Georgia,serif" font-size="79" letter-spacing="-5" fill="#3d382d">forma</text>
+<text x="55" y="167" font-family="Arial,Helvetica,sans-serif" font-size="9" letter-spacing="3" fill="#675e4b">THE ART OF LESS.</text>
+<text x="53" y="495" font-family="Arial,Helvetica,sans-serif" font-size="19" letter-spacing="-.3" fill="#3d382d">Considered spaces.</text><text x="53" y="523" font-family="Arial,Helvetica,sans-serif" font-size="19" letter-spacing="-.3" fill="#3d382d">Quiet stories.</text>
+<path d="M702 96h32m-16-16v32" stroke="#7c6f58" stroke-width="1"/></svg>
