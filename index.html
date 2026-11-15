@@ -109,6 +109,8 @@ section { padding-block: var(--s16); }
 .thumb.tall { aspect-ratio: 9 / 16; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; }
 .thumb .fallback { position: absolute; inset: 0; display: grid; place-items: center; font: 800 48px/1 var(--font-display); color: var(--line-strong); }
+.thumb iframe.hover-preview { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; opacity: 0; transition: opacity 320ms var(--ease); background: #000; }
+.thumb iframe.hover-preview.on { opacity: 1; }
 .thumb .badge { position: absolute; top: var(--s3); left: var(--s3); padding: 2px var(--s2); background: rgba(13,6,24,.85); border: 1px solid var(--line); border-radius: var(--r-sm); font: 500 10px/16px var(--font-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--orange); }
 .card-body { display: grid; gap: var(--s2); padding: var(--s4); align-content: start; }
 .card-body h3 { font-size: 17px; line-height: 22px; }
@@ -176,6 +178,18 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .lightbox iframe { width: 100%; height: 100%; border: 0; }
 .lightbox-close { position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); }
 .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 110; padding: var(--s3) var(--s4); background: var(--ink); color: var(--surface); border-radius: var(--r-md); font-size: 14px; box-shadow: var(--shadow-float); }
+/* Custom cursor: desktop pointers only */
+.cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; z-index: 200; pointer-events: none; border-radius: 50%; transform: translate(-50%, -50%); opacity: 0; transition: opacity 200ms var(--ease), width 200ms var(--ease), height 200ms var(--ease), background 200ms var(--ease); will-change: transform; }
+.cursor-dot { width: 8px; height: 8px; background: var(--accent); }
+.cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--accent); }
+html.has-cursor .cursor-dot, html.has-cursor .cursor-ring { opacity: 1; }
+html.has-cursor.cursor-hover .cursor-ring { width: 56px; height: 56px; background: rgba(185, 152, 255, 0.12); }
+html.has-cursor.cursor-hover .cursor-dot { width: 4px; height: 4px; }
+html.has-cursor.cursor-down .cursor-ring { width: 28px; height: 28px; }
+html.has-cursor, html.has-cursor a, html.has-cursor button, html.has-cursor .card { cursor: none; }
+html.has-cursor input, html.has-cursor textarea { cursor: text; }
+html.has-cursor.cursor-off .cursor-dot, html.has-cursor.cursor-off .cursor-ring { opacity: 0; }
+html.has-cursor.cursor-off, html.has-cursor.cursor-off a, html.has-cursor.cursor-off button, html.has-cursor.cursor-off .card { cursor: auto; }
 .reveal { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .marquee-track { animation: none; } *, *::before, *::after { transition: none !important; } }
 </style>
@@ -293,6 +307,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   <button class="btn btn-accent" id="fab-trigger" type="button" aria-expanded="false" aria-controls="fab-menu">Contact me</button>
 </div>
 
+<div class="cursor-ring" aria-hidden="true"></div><div class="cursor-dot" aria-hidden="true"></div>
 <div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Video">
   <button class="btn btn-outline btn-sm lightbox-close" id="lightbox-close" type="button" style="background:var(--surface-raised)">Close</button>
   <div class="lightbox-inner" id="lightbox-inner"></div>
@@ -494,11 +509,13 @@ function renderWork() {
   $("work-grid").innerHTML = WORK.map((w) => cardHTML(w, false)).join("");
   $("shorts-grid").innerHTML = SHORTS.map((s) => cardHTML(s, true)).join("");
   if (!SHORTS.length) $("shorts").hidden = true;
+  const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.querySelectorAll(".card[data-video]").forEach((b) => {
     const ref = videoRef(b.dataset.video);
     b.addEventListener("click", () => openLightbox(ref, b.dataset.tall === "1"));
     const img = b.querySelector(".thumb img");
     if (ref && ref.kind === "vimeo" && img && img.hidden) loadVimeoThumb(ref, img);
+    if (canHover && ref) attachHoverPreview(b, ref);
   });
 }
 function renderExperience() {
@@ -516,6 +533,64 @@ function renderBrands() {
   $("marquee").innerHTML = items + items;
   if (!BRANDS.length) document.querySelector(".marquee").hidden = true;
 }
+
+// Muted, looping preview that loads only while the mouse rests on a card.
+function previewSrc(ref) {
+  if (ref.kind === "vimeo") return `https://player.vimeo.com/video/${ref.id}?${ref.hash ? "h=" + ref.hash + "&" : ""}background=1&autoplay=1&muted=1&loop=1&autopause=0`;
+  return `https://www.youtube-nocookie.com/embed/${ref.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${ref.id}&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3`;
+}
+function attachHoverPreview(card, ref) {
+  const thumb = card.querySelector(".thumb");
+  let timer = null, frame = null;
+  const start = () => {
+    timer = setTimeout(() => {
+      if (frame) return;
+      frame = document.createElement("iframe");
+      frame.className = "hover-preview";
+      frame.setAttribute("tabindex", "-1");
+      frame.setAttribute("aria-hidden", "true");
+      frame.allow = "autoplay; encrypted-media";
+      frame.src = previewSrc(ref);
+      frame.addEventListener("load", () => setTimeout(() => frame && frame.classList.add("on"), 400));
+      thumb.appendChild(frame);
+    }, 350);
+  };
+  const stop = () => {
+    clearTimeout(timer);
+    if (frame) { const f = frame; frame = null; f.classList.remove("on"); setTimeout(() => f.remove(), 320); }
+  };
+  card.addEventListener("mouseenter", start);
+  card.addEventListener("mouseleave", stop);
+  card.addEventListener("click", stop);
+}
+
+// Custom cursor: a dot that follows the pointer and a ring that trails it.
+(function initCursor() {
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!fine || reduce) return;
+  const dot = document.querySelector(".cursor-dot"), ring = document.querySelector(".cursor-ring");
+  const root = document.documentElement;
+  let x = innerWidth / 2, y = innerHeight / 2, rx = x, ry = y, shown = false, raf = 0;
+  const tick = () => {
+    rx += (x - rx) * 0.18; ry += (y - ry) * 0.18;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+    raf = requestAnimationFrame(tick);
+  };
+  document.addEventListener("mousemove", (e) => {
+    x = e.clientX; y = e.clientY;
+    dot.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+    if (!shown) { shown = true; rx = x; ry = y; root.classList.add("has-cursor"); raf = requestAnimationFrame(tick); }
+    const hit = e.target.closest && e.target.closest("a, button, .card, input, textarea, label");
+    root.classList.toggle("cursor-hover", !!hit && !e.target.closest("input, textarea"));
+  });
+  document.addEventListener("mousedown", () => root.classList.add("cursor-down"));
+  document.addEventListener("mouseup", () => root.classList.remove("cursor-down"));
+  document.addEventListener("mouseleave", () => root.classList.add("cursor-off"));
+  document.addEventListener("mouseenter", () => root.classList.remove("cursor-off"));
+  // Over the video player the page gets no mouse events, so hand back the native cursor there.
+  new MutationObserver(() => root.classList.toggle("cursor-off", !$("lightbox").hidden)).observe($("lightbox"), { attributes: true, attributeFilter: ["hidden"] });
+})();
 
 let lastFocus = null;
 function openLightbox(ref, tall) {
