@@ -350,8 +350,9 @@ const SKILLS = [
   { group: "Tools and workflow", items: ["Higgsfield", "ElevenLabs", "Submagic", "Descript", "Riverside", "Trello", "Monday"] },
 ];
 
-// EDIT WORK (wide cards). video: YouTube URL or ID. link: optional, used when there is no video.
-// PLACEHOLDERS: replace each video with your own link.
+// EDIT WORK (wide cards). video: a YouTube or Vimeo link (unlisted Vimeo links with the extra code work too).
+// image: optional thumbnail file or URL; Vimeo thumbnails load automatically when left empty.
+// link: optional, used when there is no video. PLACEHOLDERS: replace each video with your own link.
 const WORK = [
   { title: "Podcast episode, full edit", role: "Edit, graphics, multi-platform export", video: "dQw4w9WgXcQ", tags: ["Podcast", "Premiere"] },
   { title: "SaaS explainer", role: "Edit and motion graphics", video: "dQw4w9WgXcQ", tags: ["SaaS", "After Effects"] },
@@ -361,7 +362,7 @@ const WORK = [
   { title: "Motion graphics reel", role: "Motion design", image: "", link: "https://www.behance.net/sajidcreativo", tags: ["Motion", "Behance"] },
 ];
 
-// EDIT SHORTS (tall 9:16 cards). PLACEHOLDERS: replace each video with your own link.
+// EDIT SHORTS (tall 9:16 cards). video: YouTube or Vimeo link. PLACEHOLDERS: replace each video with your own link.
 const SHORTS = [
   { title: "Podcast clip", video: "dQw4w9WgXcQ" },
   { title: "Course teaser", video: "dQw4w9WgXcQ" },
@@ -412,7 +413,22 @@ const PLACEHOLDER_PORTRAIT = "data:image/svg+xml;utf8," + encodeURIComponent(
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 function ytId(v) { if (!v) return ""; const m = String(v).match(/(?:v=|be\/|shorts\/|embed\/)([\w-]{11})/); return m ? m[1] : (/^[\w-]{11}$/.test(v) ? v : ""); }
-function vimeoId(v) { const m = String(v || "").match(/vimeo\.com\/(?:video\/)?(\d+)/); return m ? m[1] : ""; }
+function vimeoId(v) { const m = String(v || "").match(/vimeo\.com\/(?:video\/|manage\/videos\/)?(\d+)(?:\/([a-z0-9]+))?/i); return m ? m[1] + (m[2] ? "/" + m[2] : "") : ""; }
+// Returns {kind, id, hash} for a YouTube or Vimeo link, or null.
+function videoRef(v) {
+  const vm = vimeoId(v); if (vm) { const [id, hash] = vm.split("/"); return { kind: "vimeo", id, hash: hash || "" }; }
+  const yt = ytId(v); if (yt) return { kind: "yt", id: yt, hash: "" };
+  return null;
+}
+function embedSrc(ref) {
+  if (ref.kind === "vimeo") return `https://player.vimeo.com/video/${ref.id}?${ref.hash ? "h=" + ref.hash + "&" : ""}autoplay=1&title=0&byline=0&portrait=0`;
+  return `https://www.youtube.com/embed/${ref.id}?autoplay=1&rel=0`;
+}
+// Vimeo thumbnails come from Vimeo's public oEmbed endpoint, fetched after the page renders.
+function loadVimeoThumb(ref, img) {
+  const url = `https://vimeo.com/api/oembed.json?url=${encodeURIComponent("https://vimeo.com/" + ref.id + (ref.hash ? "/" + ref.hash : ""))}&width=640`;
+  fetch(url).then((r) => r.ok ? r.json() : null).then((d) => { if (d && d.thumbnail_url) { img.src = d.thumbnail_url; img.hidden = false; } }).catch(() => {});
+}
 function ytThumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
 
 function fillSite() {
@@ -431,11 +447,14 @@ function fillSite() {
   $("portrait-name").textContent = SITE.name;
   $("portrait-location").textContent = SITE.location;
   $("profile-photo").src = SITE.profilePhoto || PLACEHOLDER_PORTRAIT;
-  const introId = ytId(SITE.introVideo), introVimeo = vimeoId(SITE.introVideo);
-  if (!introId && !introVimeo) { $("intro-video").hidden = true; }
+  const intro = videoRef(SITE.introVideo);
+  if (!intro) { $("intro-video").hidden = true; }
   else {
-    $("intro-preview").src = SITE.introPreview || (introId ? ytThumb(introId) : "");
-    $("intro-video").addEventListener("click", () => openLightbox(introId || introVimeo, false, !!introVimeo));
+    const pv = $("intro-preview");
+    if (SITE.introPreview) pv.src = SITE.introPreview;
+    else if (intro.kind === "yt") pv.src = ytThumb(intro.id);
+    else { pv.hidden = true; loadVimeoThumb(intro, pv); }
+    $("intro-video").addEventListener("click", () => openLightbox(intro, false));
   }
   $("work-heading").textContent = SITE.workHeading;
   $("work-copy").textContent = SITE.workCopy;
@@ -461,20 +480,26 @@ function renderSkills() {
   $("skill-groups").innerHTML = SKILLS.map((g) => `<div class="skill-group"><h3>${esc(g.group)}</h3><div class="chips">${g.items.map((s) => `<span class="chip">${esc(s)}</span>`).join("")}</div></div>`).join("");
 }
 
-function cardHTML(item, tall) {
-  const id = ytId(item.video);
-  const img = item.image || (id ? ytThumb(id) : "");
+function cardHTML(item, tall, index) {
+  const ref = videoRef(item.video);
+  const img = item.image || (ref && ref.kind === "yt" ? ytThumb(ref.id) : "");
+  const needsVimeoThumb = ref && ref.kind === "vimeo" && !item.image;
   const initial = esc((item.title || "?").trim().charAt(0).toUpperCase());
-  const thumb = `<div class="thumb ${tall ? "tall" : "wide"}"><div class="fallback">${initial}</div>${img ? `<img src="${esc(img)}" alt="" loading="lazy" onerror="this.remove()">` : ""}${id ? '<span class="badge">&#9654; Watch</span>' : ""}</div>`;
+  const thumb = `<div class="thumb ${tall ? "tall" : "wide"}"><div class="fallback">${initial}</div>${img || needsVimeoThumb ? `<img src="${esc(img)}" alt="" loading="lazy" ${needsVimeoThumb ? "hidden" : ""} onerror="this.remove()">` : ""}${ref ? '<span class="badge">&#9654; Watch</span>' : ""}</div>`;
   const body = `<div class="card-body"><h3>${esc(item.title)}</h3>${item.role ? `<p>${esc(item.role)}</p>` : ""}${item.tags?.length ? `<div class="tags">${item.tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}</div>`;
-  if (id) return `<button class="card" type="button" data-video="${id}" data-tall="${tall ? 1 : 0}">${thumb}${body}</button>`;
+  if (ref) return `<button class="card" type="button" data-video="${esc(item.video)}" data-tall="${tall ? 1 : 0}">${thumb}${body}</button>`;
   return `<a class="card" href="${esc(item.link || "#")}" target="_blank" rel="noopener">${thumb}${body}</a>`;
 }
 function renderWork() {
   $("work-grid").innerHTML = WORK.map((w) => cardHTML(w, false)).join("");
   $("shorts-grid").innerHTML = SHORTS.map((s) => cardHTML(s, true)).join("");
   if (!SHORTS.length) $("shorts").hidden = true;
-  document.querySelectorAll(".card[data-video]").forEach((b) => b.addEventListener("click", () => openLightbox(b.dataset.video, b.dataset.tall === "1")));
+  document.querySelectorAll(".card[data-video]").forEach((b) => {
+    const ref = videoRef(b.dataset.video);
+    b.addEventListener("click", () => openLightbox(ref, b.dataset.tall === "1"));
+    const img = b.querySelector(".thumb img");
+    if (ref && ref.kind === "vimeo" && img && img.hidden) loadVimeoThumb(ref, img);
+  });
 }
 function renderExperience() {
   $("timeline").innerHTML = EXPERIENCE.map((j) => `<div class="job"><div class="when">${esc(j.when)}</div><h3>${esc(j.title)}</h3><div class="where">${esc(j.where)}</div><ul>${(j.points || []).map((p) => `<li>${esc(p)}</li>`).join("")}</ul></div>`).join("");
@@ -493,12 +518,12 @@ function renderBrands() {
 }
 
 let lastFocus = null;
-function openLightbox(id, tall, vimeo) {
+function openLightbox(ref, tall) {
+  if (!ref) return;
   lastFocus = document.activeElement;
   const inner = $("lightbox-inner");
   inner.className = "lightbox-inner" + (tall ? " tall" : "");
-  const src = vimeo ? `https://player.vimeo.com/video/${id}?autoplay=1` : `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
-  inner.innerHTML = `<iframe src="${src}" title="Video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  inner.innerHTML = `<iframe src="${embedSrc(ref)}" title="Video" allow="autoplay; fullscreen; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
   $("lightbox").hidden = false;
   document.body.style.overflow = "hidden";
   $("lightbox-close").focus();
