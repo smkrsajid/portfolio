@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sajidul Islam Portfolio</title>
+<meta name="description" content="Md. Sajidul Islam is a motion designer and video editor in Dhaka, Bangladesh, editing podcasts, courses, SaaS and business content for North American clients.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one column, 1200px max, sections stacked on a 4px rhythm. Dark-first, one accent. */
+:root {
+  --surface: #140b24; --surface-raised: #1d1232; --surface-sunken: #0d0618;
+  --ink: #f3eefc; --ink-muted: #b3a8cc; --line: #2f2347; --line-strong: #6f6090;
+  --brand: #7122e6; --on-brand: #ffffff; --brand-deep: #541aa1; --brand-soft: #2a1a4d;
+  --accent: #b998ff; --green: #4dbf7e; --orange: #f78934; --on-orange: #1a0a00;
+  --font-display: "Syne", "Arial Black", system-ui, sans-serif;
+  --font-sans: "Instrument Sans", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s6: 24px; --s8: 32px; --s12: 48px; --s16: 64px; --s24: 96px;
+  --r-sm: 4px; --r-md: 8px; --r-lg: 16px; --r-pill: 999px;
+  --shadow-float: 0 8px 24px rgba(0,0,0,.55);
+  --ease: cubic-bezier(.2, 0, 0, 1);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--surface); color: var(--ink); font: 400 16px/24px var(--font-sans); -webkit-font-smoothing: antialiased;
+  background-image: linear-gradient(rgba(185,152,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(185,152,255,.06) 1px, transparent 1px);
+  background-size: 48px 48px; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); text-wrap: balance; letter-spacing: -0.02em; }
+p { margin: 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-sm); }
+.wrap { width: 100%; max-width: 1200px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+@media (min-width: 640px) { .wrap { padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: max(48px, env(safe-area-inset-right, 0px)); } }
+@media (min-width: 1024px) { .wrap { padding-left: max(64px, env(safe-area-inset-left, 0px)); padding-right: max(64px, env(safe-area-inset-right, 0px)); } }
+
+/* Nav */
+.nav { position: sticky; top: 0; z-index: 50; background: rgba(20,11,36,.85); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: var(--s4); height: 64px; }
+.logo { font: 800 14px/1 var(--font-mono); letter-spacing: .3em; text-transform: uppercase; text-decoration: none; }
+.nav-links { display: none; gap: var(--s6); list-style: none; margin: 0; padding: 0; }
+.nav-links a { font: 500 14px/20px var(--font-sans); color: var(--ink-muted); text-decoration: none; }
+.nav-links a:hover { color: var(--ink); }
+@media (min-width: 768px) { .nav-links { display: flex; } }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--s2); padding: var(--s3) var(--s6); border-radius: var(--r-pill); border: 1px solid transparent; font: 600 14px/20px var(--font-sans); text-decoration: none; cursor: pointer; transition: transform 120ms var(--ease), background 120ms var(--ease), border-color 120ms var(--ease); white-space: nowrap; }
+.btn:active { transform: scale(.98); }
+.btn-accent { background: var(--brand); color: var(--on-brand); }
+.btn-accent:hover { filter: brightness(1.12); }
+.btn-outline { background: transparent; color: var(--ink); border-color: var(--line-strong); }
+.btn-outline:hover { border-color: var(--ink); }
+.btn-sm { padding: var(--s2) var(--s4); font-size: 12px; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* Sections */
+section { padding-block: var(--s16); }
+@media (min-width: 1024px) { section { padding-block: var(--s24); } }
+.eyebrow { font: 500 12px/16px var(--font-mono); letter-spacing: .2em; text-transform: uppercase; color: var(--accent); }
+.section-head { display: grid; gap: var(--s2); margin-bottom: var(--s8); }
+.section-head h2 { font-size: 32px; line-height: 38px; font-weight: 700; }
+@media (min-width: 640px) { .section-head h2 { font-size: 40px; line-height: 44px; } }
+.section-head p { color: var(--ink-muted); max-width: 65ch; }
+
+/* Hero */
+.hero { padding-block: var(--s12) var(--s16); }
+@media (min-width: 1024px) { .hero { padding-block: var(--s24); } }
+.hero .wrap { display: grid; gap: var(--s12); align-items: center; }
+@media (min-width: 1024px) { .hero .wrap { grid-template-columns: 7fr 5fr; gap: var(--s16); } }
+.hero-copy { display: grid; gap: var(--s6); }
+.hero h1 { font-size: 44px; line-height: 46px; font-weight: 800; }
+@media (min-width: 640px) { .hero h1 { font-size: 64px; line-height: 64px; } }
+@media (min-width: 1024px) { .hero h1 { font-size: 76px; line-height: 76px; } }
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero-role { font: 500 14px/20px var(--font-mono); color: var(--ink-muted); letter-spacing: .08em; text-transform: uppercase; }
+.hero-bio { font-size: 18px; line-height: 28px; color: var(--ink-muted); max-width: 60ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--s3); }
+.hero-meta { display: flex; flex-wrap: wrap; gap: var(--s6); font: 400 13px/20px var(--font-mono); color: var(--ink-muted); }
+.hero-meta span::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--green); margin-right: var(--s2); vertical-align: middle; }
+.hero-side { display: grid; gap: var(--s6); }
+.portrait { position: relative; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); background: var(--brand-soft); aspect-ratio: 4 / 5; max-width: 420px; }
+.portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
+.portrait figcaption { position: absolute; left: var(--s4); bottom: var(--s4); display: grid; gap: 2px; padding: var(--s2) var(--s3); background: rgba(13,6,24,.8); border: 1px solid var(--line); border-radius: var(--r-md); font: 500 11px/16px var(--font-mono); letter-spacing: .15em; text-transform: uppercase; }
+.portrait figcaption small { color: var(--ink-muted); letter-spacing: .1em; }
+.intro { position: relative; display: block; width: 100%; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--surface-raised); aspect-ratio: 16 / 9; cursor: pointer; padding: 0; color: inherit; text-align: left; }
+.intro img { width: 100%; height: 100%; object-fit: cover; opacity: .7; transition: transform 320ms var(--ease), opacity 320ms var(--ease); }
+.intro:hover img { transform: scale(1.03); opacity: .9; }
+.intro .play { position: absolute; inset: 0; display: grid; place-items: center; }
+.intro .play span { display: inline-flex; align-items: center; gap: var(--s2); padding: var(--s2) var(--s4); background: var(--brand); color: var(--on-brand); border-radius: var(--r-pill); font: 600 11px/16px var(--font-mono); letter-spacing: .2em; text-transform: uppercase; }
+
+/* Skills */
+.chips { display: flex; flex-wrap: wrap; gap: var(--s2); }
+.chip { padding: var(--s1) var(--s3); border: 1px solid var(--line-strong); border-radius: var(--r-pill); font: 500 13px/20px var(--font-sans); color: var(--ink); background: var(--surface-raised); }
+.skill-groups { display: grid; gap: var(--s6); }
+@media (min-width: 640px) { .skill-groups { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .skill-groups { grid-template-columns: repeat(4, 1fr); } }
+.skill-group { display: grid; gap: var(--s3); padding: var(--s6); background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--r-lg); align-content: start; }
+.skill-group h3 { font-size: 18px; line-height: 24px; }
+
+/* Work grids */
+.grid { display: grid; gap: var(--s6); }
+.grid-wide { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.grid-tall { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+.card { display: grid; grid-template-rows: auto 1fr; background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; text-decoration: none; color: inherit; transition: border-color 200ms var(--ease), transform 200ms var(--ease); cursor: pointer; padding: 0; text-align: left; font: inherit; }
+.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.thumb { position: relative; background: var(--surface-sunken); overflow: hidden; }
+.thumb.wide { aspect-ratio: 16 / 9; }
+.thumb.tall { aspect-ratio: 9 / 16; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; }
+.thumb .fallback { position: absolute; inset: 0; display: grid; place-items: center; font: 800 48px/1 var(--font-display); color: var(--line-strong); }
+.thumb .badge { position: absolute; top: var(--s3); left: var(--s3); padding: 2px var(--s2); background: rgba(13,6,24,.85); border: 1px solid var(--line); border-radius: var(--r-sm); font: 500 10px/16px var(--font-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--orange); }
+.card-body { display: grid; gap: var(--s2); padding: var(--s4); align-content: start; }
+.card-body h3 { font-size: 17px; line-height: 22px; }
+.card-body p { font-size: 14px; line-height: 20px; color: var(--ink-muted); }
+.card-body .tags { display: flex; flex-wrap: wrap; gap: var(--s1); margin-top: var(--s1); }
+.card-body .tags span { font: 500 11px/16px var(--font-mono); color: var(--ink-muted); padding: 2px var(--s2); border: 1px solid var(--line); border-radius: var(--r-sm); }
+
+/* Experience */
+.timeline { display: grid; gap: 0; border-left: 1px solid var(--line); margin-left: var(--s2); }
+.job { position: relative; display: grid; gap: var(--s2); padding: 0 0 var(--s8) var(--s8); }
+.job::before { content: ""; position: absolute; left: -5px; top: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+.job:last-child { padding-bottom: 0; }
+.job .when { font: 500 12px/16px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); }
+.job h3 { font-size: 20px; line-height: 26px; }
+.job .where { color: var(--accent); font-weight: 500; }
+.job ul { margin: var(--s1) 0 0; padding-left: 18px; color: var(--ink-muted); display: grid; gap: var(--s1); }
+@media (min-width: 768px) { .job { grid-template-columns: 160px 1fr; column-gap: var(--s6); } .job .when { padding-top: 4px; } .job > :not(.when) { grid-column: 2; } .job .when { grid-column: 1; grid-row: 1; } }
+
+/* Testimonials */
+.quotes { display: grid; gap: var(--s6); }
+@media (min-width: 768px) { .quotes { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); } }
+.quote { display: grid; gap: var(--s4); padding: var(--s6); background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--r-lg); }
+.quote blockquote { margin: 0; font-size: 16px; line-height: 26px; }
+.quote blockquote::before { content: "\201C"; color: var(--orange); font: 800 40px/0 var(--font-display); vertical-align: -14px; margin-right: 4px; }
+.quote .who { display: flex; align-items: center; gap: var(--s3); }
+.quote .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--brand-soft); color: var(--accent); display: grid; place-items: center; font: 700 14px/1 var(--font-display); flex: none; }
+.quote .who strong { display: block; font-size: 14px; line-height: 20px; }
+.quote .who span { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+
+/* Marquee */
+.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: var(--s6); }
+.marquee-track { display: flex; width: max-content; gap: var(--s16); animation: marquee 40s linear infinite; }
+.marquee-track span { font: 700 20px/28px var(--font-display); color: var(--ink-muted); white-space: nowrap; letter-spacing: .02em; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+/* Contact */
+.contact .wrap { display: grid; gap: var(--s12); }
+@media (min-width: 1024px) { .contact .wrap { grid-template-columns: 5fr 7fr; gap: var(--s16); } }
+.contact-links { display: grid; gap: var(--s3); }
+.contact-link { display: flex; align-items: center; gap: var(--s4); padding: var(--s4); background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--r-lg); text-decoration: none; transition: border-color 200ms var(--ease); min-width: 0; }
+.contact-link:hover { border-color: var(--line-strong); }
+.contact-link .icon { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: var(--r-md); background: var(--brand-soft); color: var(--accent); }
+.contact-link .icon svg { width: 20px; height: 20px; }
+.contact-link strong { display: block; font-size: 14px; line-height: 20px; }
+.contact-link span { font: 400 13px/18px var(--font-mono); color: var(--ink-muted); overflow-wrap: anywhere; }
+.form { display: grid; gap: var(--s4); padding: var(--s6); background: var(--surface-raised); border: 1px solid var(--line); border-radius: var(--r-lg); }
+.form-row { display: grid; gap: var(--s4); }
+@media (min-width: 640px) { .form-row { grid-template-columns: 1fr 1fr; } }
+.field { display: grid; gap: var(--s1); }
+.field label { font: 500 12px/16px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); }
+.field input, .field textarea { width: 100%; padding: var(--s3) var(--s4); background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); border-radius: var(--r-md); font: 400 16px/24px var(--font-sans); }
+.field textarea { min-height: 140px; resize: vertical; }
+.form-note { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
+
+/* Footer, FAB, lightbox, toast */
+footer { border-top: 1px solid var(--line); padding-block: var(--s8); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s4); font: 400 12px/16px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-muted); }
+.fab { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 60; display: grid; justify-items: end; gap: var(--s2); }
+.fab-menu { display: grid; gap: var(--s2); }
+.fab-menu .btn { box-shadow: var(--shadow-float); }
+.lightbox { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.85); display: grid; place-items: center; padding: var(--s4); }
+.lightbox-inner { width: min(100%, 1000px); aspect-ratio: 16 / 9; background: #000; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); }
+.lightbox-inner.tall { width: min(100%, 420px); aspect-ratio: 9 / 16; }
+.lightbox iframe { width: 100%; height: 100%; border: 0; }
+.lightbox-close { position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: max(16px, env(safe-area-inset-right, 0px)); }
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 110; padding: var(--s3) var(--s4); background: var(--ink); color: var(--surface); border-radius: var(--r-md); font-size: 14px; box-shadow: var(--shadow-float); }
+.reveal { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .marquee-track { animation: none; } *, *::before, *::after { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" id="logo"></a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-accent btn-sm" href="#contact">Hire me</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <div class="hero-role" id="hero-role"></div>
+        <h1 id="hero-heading"></h1>
+        <p class="hero-bio" id="hero-bio"></p>
+        <div class="hero-actions">
+          <a class="btn btn-accent" id="btn-resume" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Resume</a>
+          <a class="btn btn-outline" id="btn-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="btn btn-outline" id="btn-behance" href="#" target="_blank" rel="noopener">Behance</a>
+          <a class="btn btn-outline" id="btn-email" href="#contact">Email me</a>
+        </div>
+        <div class="hero-meta"><span id="meta-location"></span><span id="meta-availability"></span></div>
+      </div>
+      <div class="hero-side">
+        <button class="intro" id="intro-video" type="button" aria-label="Play intro video">
+          <img id="intro-preview" alt="" onerror="this.style.display='none'">
+          <div class="play"><span>&#9654; Play intro</span></div>
+        </button>
+        <figure class="portrait" style="margin:0">
+          <img id="profile-photo" alt="Portrait" onerror="this.src=PLACEHOLDER_PORTRAIT">
+          <figcaption><span id="portrait-name"></span><small id="portrait-location"></small></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Skills</div><h2>What I bring to a team</h2></div>
+      <div class="skill-groups" id="skill-groups"></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Selected work</div><h2 id="work-heading"></h2><p id="work-copy"></p></div>
+      <div class="grid grid-wide" id="work-grid"></div>
+    </div>
+  </section>
+
+  <section id="shorts">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Short form</div><h2 id="shorts-heading"></h2></div>
+      <div class="grid grid-tall" id="shorts-grid"></div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Experience</div><h2>Where I have worked</h2></div>
+      <div class="timeline" id="timeline"></div>
+      <div class="section-head" style="margin-top: var(--s12)"><div class="eyebrow">Education</div></div>
+      <div class="timeline" id="education"></div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+  <section id="testimonials">
+    <div class="wrap">
+      <div class="section-head"><div class="eyebrow">Testimonials</div><h2 id="testimonials-heading"></h2></div>
+      <div class="quotes" id="quotes"></div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div>
+        <div class="section-head"><div class="eyebrow">Contact</div><h2 id="contact-heading"></h2><p id="contact-copy"></p></div>
+        <div class="contact-links" id="contact-links"></div>
+      </div>
+      <form class="form" id="contact-form">
+        <div class="form-row">
+          <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" required autocomplete="name"></div>
+          <div class="field"><label for="f-email">Your email</label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        </div>
+        <div class="field"><label for="f-company">Company or role</label><input id="f-company" name="company"></div>
+        <div class="field"><label for="f-message">Message</label><textarea id="f-message" name="message" required></textarea></div>
+        <button class="btn btn-accent" type="submit">Send message</button>
+        <p class="form-note">Opens your email app with the message filled in. Nothing is stored on this site.</p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span id="footer-text"></span><span id="footer-made"></span></div></footer>
+
+<div class="fab">
+  <div class="fab-menu" id="fab-menu" hidden>
+    <a class="btn btn-outline" id="fab-whatsapp" href="#" target="_blank" rel="noopener" style="background:var(--surface-raised)">WhatsApp</a>
+    <a class="btn btn-outline" id="fab-email" href="#" style="background:var(--surface-raised)">Email</a>
+  </div>
+  <button class="btn btn-accent" id="fab-trigger" type="button" aria-expanded="false" aria-controls="fab-menu">Contact me</button>
+</div>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Video">
+  <button class="btn btn-outline btn-sm lightbox-close" id="lightbox-close" type="button" style="background:var(--surface-raised)">Close</button>
+  <div class="lightbox-inner" id="lightbox-inner"></div>
+</div>
+
+<script>
+/* ======================================================================
+   EDIT ZONE. Change only the values in this block.
+   Search for: EDIT NAME, EDIT CONTACT, EDIT FILES, EDIT TEXT, EDIT SKILLS,
+   EDIT WORK, EDIT SHORTS, EDIT EXPERIENCE, EDIT TESTIMONIALS, EDIT BRANDS.
+   Videos take a full YouTube URL or an 11-character video ID.
+   Keep the quotation marks around text values.
+   ====================================================================== */
+
+// EDIT NAME
+const SITE = {
+  name: "Md. Sajidul Islam",
+  firstName: "Sajidul",
+  logoText: "SAJIDUL",
+  location: "Dhaka, Bangladesh",
+  jobTitle: "Motion Designer & Video Editor",
+  availability: "Open to full-time and remote roles",
+
+  // EDIT CONTACT
+  email: "sajidulislam81@gmail.com",
+  whatsapp: "8801938422553",
+  linkedin: "https://www.linkedin.com/in/sajidcreativo/",
+  behance: "https://www.behance.net/sajidcreativo",
+
+  // EDIT FILES (put these files next to index.html)
+  profilePhoto: "photo.png",
+  resumeUrl: "resume.pdf",
+  introVideo: "",   // leave empty to hide the intro player; paste a YouTube or Vimeo link to show it
+  introPreview: "",
+
+  // EDIT TEXT
+  heroHeading: "Hi, I am Sajidul.",
+  heroBio: "A motion designer and video editor with 4 years of experience in long-form, short-form and full-cycle post-production. I edit podcasts, courses, SaaS and business content for North American clients, animate the motion graphics that keep viewers watching, and manage projects from raw footage to final delivery.",
+  workHeading: "Long-form and campaign work",
+  workCopy: "Click any piece to watch it. Each card lists what I did on the project.",
+  shortsHeading: "Reels and Shorts",
+  testimonialsHeading: "What managers and clients say",
+  contactHeading: "Let's talk",
+  contactCopy: "If you are hiring a video editor or motion designer, or want to discuss a project, send a message and I will reply within a day.",
+  whatsappMessage: "Hi Sajidul, I saw your portfolio and would like to talk about a role.",
+  emailSubject: "Opportunity for Sajidul Islam",
+  footerText: "© 2026 Md. Sajidul Islam",
+};
+
+// EDIT SKILLS
+const SKILLS = [
+  { group: "Editing", items: ["Premiere Pro", "DaVinci Resolve", "CapCut"] },
+  { group: "Motion and design", items: ["After Effects", "Photoshop", "Illustrator", "Figma"] },
+  { group: "Specialties", items: ["Podcast editing", "Long-to-short repurposing", "Motion graphics", "Template workflows", "Storytelling"] },
+  { group: "Tools and workflow", items: ["Higgsfield", "ElevenLabs", "Submagic", "Descript", "Riverside", "Trello", "Monday"] },
+];
+
+// EDIT WORK (wide cards). video: YouTube URL or ID. link: optional, used when there is no video.
+// PLACEHOLDERS: replace each video with your own link.
+const WORK = [
+  { title: "Podcast episode, full edit", role: "Edit, graphics, multi-platform export", video: "dQw4w9WgXcQ", tags: ["Podcast", "Premiere"] },
+  { title: "SaaS explainer", role: "Edit and motion graphics", video: "dQw4w9WgXcQ", tags: ["SaaS", "After Effects"] },
+  { title: "Online course module", role: "Edit, titles, lower thirds", video: "dQw4w9WgXcQ", tags: ["Education"] },
+  { title: "Studio shoot for two channels", role: "Shoot, edit, motion", video: "dQw4w9WgXcQ", tags: ["Studio", "Long-form"] },
+  { title: "Product and educational video", role: "Edit and sound", video: "dQw4w9WgXcQ", tags: ["Product"] },
+  { title: "Motion graphics reel", role: "Motion design", image: "", link: "https://www.behance.net/sajidcreativo", tags: ["Motion", "Behance"] },
+];
+
+// EDIT SHORTS (tall 9:16 cards). PLACEHOLDERS: replace each video with your own link.
+const SHORTS = [
+  { title: "Podcast clip", video: "dQw4w9WgXcQ" },
+  { title: "Course teaser", video: "dQw4w9WgXcQ" },
+  { title: "Product short", video: "dQw4w9WgXcQ" },
+  { title: "Quote cut", video: "dQw4w9WgXcQ" },
+  { title: "Launch countdown", video: "dQw4w9WgXcQ" },
+];
+
+// EDIT EXPERIENCE (most recent first)
+const EXPERIENCE = [
+  { when: "Dec 2024 to now", title: "Senior Motion Designer and Video Editor", where: "Getlevrg, Baridhara, Dhaka", points: [
+    "Edit content for 10+ clients publishing on YouTube, Spotify, Apple Podcasts and Podbean, formatted and exported for each platform.",
+    "Design and animate motion graphics in After Effects to support storytelling and keep viewers engaged.",
+    "Built reusable Premiere Pro and After Effects templates that cut turnaround time by up to 3x.",
+    "Repurpose full-length episodes into short-form clips for social platforms.",
+    "Deliver about 7 videos a week (2 long-form, 5 short-form) for North American podcast, SaaS, online course and business clients." ] },
+  { when: "May 2024 to Jul 2024", title: "Motion Designer and Video Editor", where: "The Gifting Tribe, Gulshan 2, Dhaka", points: [
+    "Shot video content in the studio for two channels.",
+    "Edited long-form and short-form videos tailored to each channel's audience and tone.",
+    "Added motion graphics to strengthen storytelling and make key messages clearer.",
+    "Managed the workflow from raw footage to final delivery." ] },
+  { when: "Jan 2023 to May 2024", title: "Motion Designer and Video Editor", where: "iFixFast Ltd., Hatirpool, Dhaka", points: [
+    "Created educational videos that built trust with the public and added value for customers.",
+    "Produced product and educational videos that drove sales and kept existing customers informed about new offers and services." ] },
+];
+
+// EDIT EDUCATION
+const EDUCATION = [
+  { when: "2020 to 2021", title: "BBA, Department of Management", where: "Sheikh Borhan Uddin Post Graduate College" },
+  { when: "2018 to 2020", title: "Business", where: "Habibullah Bahar University College" },
+];
+
+// EDIT TESTIMONIALS (PLACEHOLDERS: replace with real quotes, names and roles)
+const TESTIMONIALS = [
+  { quote: "Sajidul turned a messy two-hour recording into a tight eight-minute story that our sales team now sends to every lead.", name: "Client Name", role: "Head of Marketing, Company" },
+  { quote: "Fast, careful and great at feedback. The first cut was usually the one we shipped.", name: "Manager Name", role: "Project Manager, Agency" },
+  { quote: "Our Shorts went from a few hundred views to tens of thousands after Sajidul took over the edit.", name: "Creator Name", role: "YouTube creator" },
+];
+
+// EDIT BRANDS (names shown in the scrolling strip)
+const BRANDS = ["Sara Murray", "Empellor", "Novel Biome", "The Gifting Tribe", "Legacy Biome", "Minga", "Getlevrg", "iFixFast"];
+
+/* ====================== END OF EDIT ZONE ====================== */
+
+const PLACEHOLDER_PORTRAIT = "data:image/svg+xml;utf8," + encodeURIComponent(
+  '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="400" height="500" fill="#1d1232"/><circle cx="200" cy="190" r="80" fill="#2f2347"/><path d="M60 460c20-90 90-130 140-130s120 40 140 130" fill="#2f2347"/><text x="200" y="60" text-anchor="middle" font-family="monospace" font-size="14" fill="#8a7fa6">ADD photo.jpg</text></svg>');
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+function ytId(v) { if (!v) return ""; const m = String(v).match(/(?:v=|be\/|shorts\/|embed\/)([\w-]{11})/); return m ? m[1] : (/^[\w-]{11}$/.test(v) ? v : ""); }
+function vimeoId(v) { const m = String(v || "").match(/vimeo\.com\/(?:video\/)?(\d+)/); return m ? m[1] : ""; }
+function ytThumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
+
+function fillSite() {
+  document.title = `${SITE.name} | ${SITE.jobTitle}`;
+  $("logo").textContent = SITE.logoText;
+  $("hero-role").textContent = SITE.jobTitle;
+  const h = SITE.heroHeading;
+  const i = h.indexOf(SITE.firstName);
+  $("hero-heading").innerHTML = i >= 0 ? esc(h.slice(0, i)) + "<em>" + esc(SITE.firstName) + "</em>" + esc(h.slice(i + SITE.firstName.length)) : esc(h);
+  $("hero-bio").textContent = SITE.heroBio;
+  $("meta-location").textContent = SITE.location;
+  $("meta-availability").textContent = SITE.availability;
+  $("btn-resume").href = SITE.resumeUrl;
+  $("btn-linkedin").href = SITE.linkedin;
+  $("btn-behance").href = SITE.behance; if (!SITE.behance) $("btn-behance").hidden = true;
+  $("portrait-name").textContent = SITE.name;
+  $("portrait-location").textContent = SITE.location;
+  $("profile-photo").src = SITE.profilePhoto || PLACEHOLDER_PORTRAIT;
+  const introId = ytId(SITE.introVideo), introVimeo = vimeoId(SITE.introVideo);
+  if (!introId && !introVimeo) { $("intro-video").hidden = true; }
+  else {
+    $("intro-preview").src = SITE.introPreview || (introId ? ytThumb(introId) : "");
+    $("intro-video").addEventListener("click", () => openLightbox(introId || introVimeo, false, !!introVimeo));
+  }
+  $("work-heading").textContent = SITE.workHeading;
+  $("work-copy").textContent = SITE.workCopy;
+  $("shorts-heading").textContent = SITE.shortsHeading;
+  $("testimonials-heading").textContent = SITE.testimonialsHeading;
+  $("contact-heading").textContent = SITE.contactHeading;
+  $("contact-copy").textContent = SITE.contactCopy;
+  $("footer-text").textContent = SITE.footerText;
+  $("footer-made").textContent = SITE.location;
+  const wa = `https://wa.me/${SITE.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(SITE.whatsappMessage)}`;
+  const mail = `mailto:${SITE.email}?subject=${encodeURIComponent(SITE.emailSubject)}`;
+  $("fab-whatsapp").href = wa; $("fab-email").href = mail; $("btn-email").href = mail;
+  const icon = (d) => `<span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg></span>`;
+  $("contact-links").innerHTML = [
+    { href: mail, label: "Email", value: SITE.email, d: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>' },
+    { href: wa, label: "WhatsApp", value: "+" + SITE.whatsapp.replace(/\D/g, ""), d: '<path d="M21 12a9 9 0 0 1-13.4 7.8L3 21l1.2-4.6A9 9 0 1 1 21 12z"/>' },
+    { href: SITE.linkedin, label: "LinkedIn", value: SITE.linkedin.replace(/^https?:\/\/(www\.)?/, ""), d: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4"/>' },
+    SITE.behance && { href: SITE.behance, label: "Behance", value: SITE.behance.replace(/^https?:\/\/(www\.)?/, ""), d: '<path d="M3 7h6a3 3 0 0 1 0 6H3zM3 13h7a3 3 0 0 1 0 6H3zM14 15h7a3.5 3.5 0 1 0-.5 2M15 7h5"/>' },
+  ].filter(Boolean).map((c) => `<a class="contact-link" href="${esc(c.href)}" target="_blank" rel="noopener">${icon(c.d)}<div style="min-width:0"><strong>${esc(c.label)}</strong><span>${esc(c.value)}</span></div></a>`).join("");
+}
+
+function renderSkills() {
+  $("skill-groups").innerHTML = SKILLS.map((g) => `<div class="skill-group"><h3>${esc(g.group)}</h3><div class="chips">${g.items.map((s) => `<span class="chip">${esc(s)}</span>`).join("")}</div></div>`).join("");
+}
+
+function cardHTML(item, tall) {
+  const id = ytId(item.video);
+  const img = item.image || (id ? ytThumb(id) : "");
+  const initial = esc((item.title || "?").trim().charAt(0).toUpperCase());
+  const thumb = `<div class="thumb ${tall ? "tall" : "wide"}"><div class="fallback">${initial}</div>${img ? `<img src="${esc(img)}" alt="" loading="lazy" onerror="this.remove()">` : ""}${id ? '<span class="badge">&#9654; Watch</span>' : ""}</div>`;
+  const body = `<div class="card-body"><h3>${esc(item.title)}</h3>${item.role ? `<p>${esc(item.role)}</p>` : ""}${item.tags?.length ? `<div class="tags">${item.tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}</div>`;
+  if (id) return `<button class="card" type="button" data-video="${id}" data-tall="${tall ? 1 : 0}">${thumb}${body}</button>`;
+  return `<a class="card" href="${esc(item.link || "#")}" target="_blank" rel="noopener">${thumb}${body}</a>`;
+}
+function renderWork() {
+  $("work-grid").innerHTML = WORK.map((w) => cardHTML(w, false)).join("");
+  $("shorts-grid").innerHTML = SHORTS.map((s) => cardHTML(s, true)).join("");
+  if (!SHORTS.length) $("shorts").hidden = true;
+  document.querySelectorAll(".card[data-video]").forEach((b) => b.addEventListener("click", () => openLightbox(b.dataset.video, b.dataset.tall === "1")));
+}
+function renderExperience() {
+  $("timeline").innerHTML = EXPERIENCE.map((j) => `<div class="job"><div class="when">${esc(j.when)}</div><h3>${esc(j.title)}</h3><div class="where">${esc(j.where)}</div><ul>${(j.points || []).map((p) => `<li>${esc(p)}</li>`).join("")}</ul></div>`).join("");
+  if (!EXPERIENCE.length) $("experience").hidden = true;
+  $("education").innerHTML = EDUCATION.map((e) => `<div class="job"><div class="when">${esc(e.when)}</div><h3>${esc(e.title)}</h3><div class="where">${esc(e.where)}</div></div>`).join("");
+  if (!EDUCATION.length) { $("education").hidden = true; $("education").previousElementSibling.hidden = true; }
+}
+function renderTestimonials() {
+  $("quotes").innerHTML = TESTIMONIALS.map((t) => `<div class="quote"><blockquote>${esc(t.quote)}</blockquote><div class="who"><div class="avatar">${esc(t.name.trim().charAt(0))}</div><div><strong>${esc(t.name)}</strong><span>${esc(t.role)}</span></div></div></div>`).join("");
+  if (!TESTIMONIALS.length) $("testimonials").hidden = true;
+}
+function renderBrands() {
+  const items = BRANDS.map((b) => `<span>${esc(b)}</span>`).join("");
+  $("marquee").innerHTML = items + items;
+  if (!BRANDS.length) document.querySelector(".marquee").hidden = true;
+}
+
+let lastFocus = null;
+function openLightbox(id, tall, vimeo) {
+  lastFocus = document.activeElement;
+  const inner = $("lightbox-inner");
+  inner.className = "lightbox-inner" + (tall ? " tall" : "");
+  const src = vimeo ? `https://player.vimeo.com/video/${id}?autoplay=1` : `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+  inner.innerHTML = `<iframe src="${src}" title="Video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+  $("lightbox").hidden = false;
+  document.body.style.overflow = "hidden";
+  $("lightbox-close").focus();
+}
+function closeLightbox() {
+  $("lightbox").hidden = true;
+  $("lightbox-inner").innerHTML = "";
+  document.body.style.overflow = "";
+  lastFocus && lastFocus.focus();
+}
+$("lightbox-close").addEventListener("click", closeLightbox);
+$("lightbox").addEventListener("click", (e) => { if (e.target === $("lightbox")) closeLightbox(); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("lightbox").hidden) closeLightbox(); });
+
+$("fab-trigger").addEventListener("click", () => {
+  const menu = $("fab-menu"); menu.hidden = !menu.hidden;
+  $("fab-trigger").setAttribute("aria-expanded", String(!menu.hidden));
+  $("fab-trigger").textContent = menu.hidden ? "Contact me" : "Close";
+});
+
+function showToast(msg) {
+  const t = document.createElement("div"); t.className = "toast"; t.textContent = msg; document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+$("contact-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const f = e.target;
+  const body = `Hi ${SITE.firstName},\n\n${f.message.value}\n\n${f.name.value}${f.company.value ? ", " + f.company.value : ""}\n${f.email.value}`;
+  const subject = `${SITE.emailSubject} from ${f.name.value}`;
+  window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  showToast("Opening your email app");
+});
+
+fillSite(); renderSkills(); renderWork(); renderExperience(); renderTestimonials(); renderBrands();
+</script>
+</body>
+</html>
