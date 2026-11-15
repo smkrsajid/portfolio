@@ -342,6 +342,7 @@ const SITE = {
   resumeUrl: "resume.pdf",
   introVideo: "",   // leave empty to hide the intro player; paste a YouTube or Vimeo link to show it
   introPreview: "",
+  autoplayPreviews: true,   // true: video cards play muted on their own as they come into view. false: play on hover only.
 
   // EDIT TEXT
   heroHeading: "Hi, I am Sajidul.",
@@ -509,13 +510,16 @@ function renderWork() {
   $("work-grid").innerHTML = WORK.map((w) => cardHTML(w, false)).join("");
   $("shorts-grid").innerHTML = SHORTS.map((s) => cardHTML(s, true)).join("");
   if (!SHORTS.length) $("shorts").hidden = true;
-  const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
   document.querySelectorAll(".card[data-video]").forEach((b) => {
     const ref = videoRef(b.dataset.video);
     b.addEventListener("click", () => openLightbox(ref, b.dataset.tall === "1"));
     const img = b.querySelector(".thumb img");
     if (ref && ref.kind === "vimeo" && img && img.hidden) loadVimeoThumb(ref, img);
-    if (canHover && ref) attachHoverPreview(b, ref);
+    if (!ref || reduceMotion) return;
+    if (SITE.autoplayPreviews) attachAutoPreview(b, ref);
+    else if (canHover) attachHoverPreview(b, ref);
   });
 }
 function renderExperience() {
@@ -534,7 +538,26 @@ function renderBrands() {
   if (!BRANDS.length) document.querySelector(".marquee").hidden = true;
 }
 
-// Muted, looping preview that starts the moment the mouse enters a card and stops when it leaves.
+// Muted, looping previews that start on their own as a card scrolls into view and are released when it leaves,
+// so only the cards on screen hold a player at any time.
+const previewObserver = ("IntersectionObserver" in window) ? new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    const card = e.target, thumb = card.querySelector(".thumb");
+    if (e.isIntersecting) {
+      if (thumb.querySelector(".hover-preview")) return;
+      const frame = document.createElement("iframe");
+      frame.className = "hover-preview"; frame.setAttribute("tabindex", "-1"); frame.setAttribute("aria-hidden", "true");
+      frame.allow = "autoplay; encrypted-media"; frame.src = previewSrc(card._ref);
+      frame.addEventListener("load", () => frame.classList.add("on"));
+      thumb.appendChild(frame);
+    } else {
+      thumb.querySelectorAll(".hover-preview").forEach((f) => f.remove());
+    }
+  });
+}, { rootMargin: "25% 0px" }) : null;
+function attachAutoPreview(card, ref) { card._ref = ref; if (previewObserver) previewObserver.observe(card); }
+
+// Muted, looping preview that starts the moment the mouse enters a card and stops when it leaves (used when autoplayPreviews is false).
 function previewSrc(ref) {
   if (ref.kind === "vimeo") return `https://player.vimeo.com/video/${ref.id}?${ref.hash ? "h=" + ref.hash + "&" : ""}background=1&autoplay=1&muted=1&loop=1&autopause=0`;
   return `https://www.youtube-nocookie.com/embed/${ref.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${ref.id}&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3`;
