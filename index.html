@@ -109,7 +109,7 @@ section { padding-block: var(--s16); }
 .thumb.tall { aspect-ratio: 9 / 16; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; }
 .thumb .fallback { position: absolute; inset: 0; display: grid; place-items: center; font: 800 48px/1 var(--font-display); color: var(--line-strong); }
-.thumb iframe.hover-preview { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; opacity: 0; transition: opacity 320ms var(--ease); background: #000; }
+.thumb iframe.hover-preview { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; opacity: 0; transition: opacity 150ms var(--ease); background: #000; }
 .thumb iframe.hover-preview.on { opacity: 1; }
 .thumb .badge { position: absolute; top: var(--s3); left: var(--s3); padding: 2px var(--s2); background: rgba(13,6,24,.85); border: 1px solid var(--line); border-radius: var(--r-sm); font: 500 10px/16px var(--font-mono); letter-spacing: .15em; text-transform: uppercase; color: var(--orange); }
 .card-body { display: grid; gap: var(--s2); padding: var(--s4); align-content: start; }
@@ -534,7 +534,7 @@ function renderBrands() {
   if (!BRANDS.length) document.querySelector(".marquee").hidden = true;
 }
 
-// Muted, looping preview that loads only while the mouse rests on a card.
+// Muted, looping preview that starts the moment the mouse enters a card and stops when it leaves.
 function previewSrc(ref) {
   if (ref.kind === "vimeo") return `https://player.vimeo.com/video/${ref.id}?${ref.hash ? "h=" + ref.hash + "&" : ""}background=1&autoplay=1&muted=1&loop=1&autopause=0`;
   return `https://www.youtube-nocookie.com/embed/${ref.id}?autoplay=1&mute=1&controls=0&loop=1&playlist=${ref.id}&playsinline=1&rel=0&modestbranding=1&iv_load_policy=3`;
@@ -545,15 +545,16 @@ function attachHoverPreview(card, ref) {
   const start = () => {
     timer = setTimeout(() => {
       if (frame) return;
+      // No delay: the preview starts loading the moment the pointer arrives.
       frame = document.createElement("iframe");
       frame.className = "hover-preview";
       frame.setAttribute("tabindex", "-1");
       frame.setAttribute("aria-hidden", "true");
       frame.allow = "autoplay; encrypted-media";
       frame.src = previewSrc(ref);
-      frame.addEventListener("load", () => setTimeout(() => frame && frame.classList.add("on"), 400));
+      frame.addEventListener("load", () => frame && frame.classList.add("on"));
       thumb.appendChild(frame);
-    }, 350);
+    }, 0);
   };
   const stop = () => {
     clearTimeout(timer);
