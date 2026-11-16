@@ -202,7 +202,7 @@ html.has-cursor.cursor-off, html.has-cursor.cursor-off a, html.has-cursor.cursor
     <ul class="nav-links">
       <li><a href="#work">Work</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#testimonials">Testimonials</a></li>
+      <li id="nav-testimonials"><a href="#testimonials">Testimonials</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a class="btn btn-accent btn-sm" href="#contact">Hire me</a>
@@ -342,7 +342,8 @@ const SITE = {
   resumeUrl: "resume.pdf",
   introVideo: "",   // leave empty to hide the intro player; paste a YouTube or Vimeo link to show it
   introPreview: "",
-  autoplayPreviews: true,   // true: video cards play muted on their own as they come into view. false: play on hover only.
+  autoplayPreviews: true,
+  showTestimonials: false,  // false hides the Testimonials section and its nav link; the entries below are kept for later   // true: video cards play muted on their own as they come into view. false: play on hover only.
 
   // EDIT TEXT
   heroHeading: "Hi, I am Sajidul.",
@@ -530,7 +531,7 @@ function renderExperience() {
 }
 function renderTestimonials() {
   $("quotes").innerHTML = TESTIMONIALS.map((t) => `<div class="quote"><blockquote>${esc(t.quote)}</blockquote><div class="who"><div class="avatar">${esc(t.name.trim().charAt(0))}</div><div><strong>${esc(t.name)}</strong><span>${esc(t.role)}</span></div></div></div>`).join("");
-  if (!TESTIMONIALS.length) $("testimonials").hidden = true;
+  if (!TESTIMONIALS.length || !SITE.showTestimonials) { $("testimonials").hidden = true; $("nav-testimonials").hidden = true; }
 }
 function renderBrands() {
   const items = BRANDS.map((b) => `<span>${esc(b)}</span>`).join("");
