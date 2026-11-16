@@ -141,7 +141,8 @@ section { padding-block: var(--s16); }
 .quote .who span { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
 
 /* Marquee */
-.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: var(--s6); }
+.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: var(--s6); display: grid; gap: var(--s4); }
+.marquee-label { color: var(--ink-muted); }
 .marquee-track { display: flex; width: max-content; gap: var(--s16); animation: marquee 40s linear infinite; }
 .marquee-track span { font: 700 20px/28px var(--font-display); color: var(--ink-muted); white-space: nowrap; letter-spacing: .02em; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
@@ -238,6 +239,8 @@ html.has-cursor.cursor-off, html.has-cursor.cursor-off a, html.has-cursor.cursor
     </div>
   </section>
 
+  <div class="marquee"><div class="wrap"><div class="eyebrow marquee-label">Brands I've edited for</div></div><div class="marquee-track" id="marquee" aria-hidden="true"></div></div>
+
   <section id="skills">
     <div class="wrap">
       <div class="section-head"><div class="eyebrow">Skills</div><h2>What I bring to a team</h2></div>
@@ -267,8 +270,6 @@ html.has-cursor.cursor-off, html.has-cursor.cursor-off a, html.has-cursor.cursor
       <div class="timeline" id="education"></div>
     </div>
   </section>
-
-  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
 
   <section id="testimonials">
     <div class="wrap">
@@ -420,7 +421,7 @@ const TESTIMONIALS = [
 ];
 
 // EDIT BRANDS (names shown in the scrolling strip)
-const BRANDS = ["Sara Murray", "Empellor", "Novel Biome", "The Gifting Tribe", "Legacy Biome", "Minga", "Circus Media", "Getlevrg", "iFixFast"];
+const BRANDS = ["Sara Murray", "Empellor", "Novel Biome", "The Gifting Tribe", "Legacy Biome", "Minga", "Circus Media"];
 
 /* ====================== END OF EDIT ZONE ====================== */
 
