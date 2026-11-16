@@ -141,7 +141,7 @@ section { padding-block: var(--s16); }
 .quote .who span { font-size: 13px; line-height: 18px; color: var(--ink-muted); }
 
 /* Marquee */
-.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: var(--s6); display: grid; gap: var(--s4); }
+.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: var(--s6); display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s4); }
 .marquee-label { color: var(--ink-muted); }
 .marquee-track { display: flex; width: max-content; gap: var(--s16); animation: marquee 40s linear infinite; }
 .marquee-track span { font: 700 20px/28px var(--font-display); color: var(--ink-muted); white-space: nowrap; letter-spacing: .02em; }
